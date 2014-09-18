@@ -11,222 +11,274 @@
 	<xsl:variable name="toc" select="concat($directory,'toc.xml')"/>
 
 	<xsl:template match="/frontpage">
-		<html>
+		<xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
+		<html class="no-js" lang="">
 			<head>
+				<meta charset="utf-8" />
+				<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+					
 				<title>Class Library Documentation</title>
-				<link href="styles/default.css" type="text/css" rel="stylesheet"></link>
+				
+				<link rel="stylesheet" href="styles/normalize.css" />
+				<link rel="stylesheet" href="styles/default-display.css" />
+				<link rel="stylesheet" href="styles/default-typography.css" />
+				<link rel="stylesheet" href="styles/default-presentation.css" />
 			</head>
 			<body>
-				<xsl:call-template name="header" />
-				<div class="navigation">
-					<ul>
-						<li>
-							<a class="current" href="index.htm">Documentation</a>
-						</li>
-					</ul>
-					<ul>
-						<xsl:for-each select="document($toc)/toc/item">
-							<xsl:if test="not(@subkey = '')">
-								<li>
-									<a href="{@key}-{@subkey}.htm">
-										<xsl:value-of select="@name"/>
-									</a>
-								</li>
-							</xsl:if>
-							<xsl:if test="not(not(@subkey = ''))">
-								<li>
-									<a href="{@key}.htm">
-										<xsl:value-of select="@name"/>
-									</a>
-								</li>
-							</xsl:if>
-						</xsl:for-each>
-					</ul>
-				</div>
-				<div class="content">
-					<h1>Class Library Documentation</h1>
-					<h2>Namespaces</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Description</th>
-							</tr>
-						</thead>
-						<xsl:apply-templates select="namespaces/namespace" />
-					</table>
-				</div>
+				<header>
+					<xsl:call-template name="header" />
+					<nav class="navigation">
+						<ul>
+							<li>
+								<a class="current" href="index.htm">Documentation</a>
+							</li>
+						</ul>
+						<ul>
+							<xsl:for-each select="document($toc)/toc/item">
+								<xsl:if test="not(@subkey = '')">
+									<li>
+										<a href="{@key}-{@subkey}.htm">
+											<xsl:value-of select="@name"/>
+										</a>
+									</li>
+								</xsl:if>
+								<xsl:if test="not(not(@subkey = ''))">
+									<li>
+										<a href="{@key}.htm">
+											<xsl:value-of select="@name"/>
+										</a>
+									</li>
+								</xsl:if>
+							</xsl:for-each>
+						</ul>
+					</nav>
+				</header>
+				<main class="content">
+					<section>
+						<h1>Class Library Documentation</h1>
+						<h2>Namespaces</h2>
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<xsl:apply-templates select="namespaces/namespace" />
+						</table>
+					</section>
+				</main>
 				<xsl:call-template name="footer" />
 			</body>
 		</html>
 	</xsl:template>
 
 	<xsl:template match="/members">
-		<html>
+		<xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
+		<html class="no-js" lang="">
 			<head>
+				<meta charset="utf-8" />
+				<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				
 				<title>
 					<xsl:value-of select="/*/name"/>
 				</title>
-				<link href="styles/default.css" type="text/css" rel="stylesheet"></link>
+				
+				<link rel="stylesheet" href="styles/normalize.css" />
+				<link rel="stylesheet" href="styles/default-display.css" />
+				<link rel="stylesheet" href="styles/default-typography.css" />
+				<link rel="stylesheet" href="styles/default-presentation.css" />
 			</head>
 			<body>
-				<xsl:call-template name="header" />
-				<div class="navigation">
-					<ul>
-						<li>
-							<a href="index.htm">Documentation</a>
-						</li>
-					</ul>
-					<xsl:apply-templates select="document($toc)" />
-				</div>
-				<div class="content">
-					<xsl:apply-templates select="name" />
-					<p>
-						The <xsl:value-of select="name/@type" /> type exposes the following members.
-					</p>
-					<xsl:call-template name="member-lists" />
-				</div>
+				<header>
+					<xsl:call-template name="header" />
+					<nav class="navigation">
+						<ul>
+							<li>
+								<a href="index.htm">Documentation</a>
+							</li>
+						</ul>
+						<xsl:apply-templates select="document($toc)" />
+					</nav>
+				</header>
+				<main class="content">
+					<section>
+						<xsl:apply-templates select="name" />
+						<p>
+							The <xsl:value-of select="name/@type" /> type exposes the following members.
+						</p>
+						<xsl:call-template name="member-lists" />
+					</section>
+				</main>
 				<xsl:call-template name="footer" />
 			</body>
 		</html>
 	</xsl:template>
 
 	<xsl:template match="/namespace">
-		<html>
+		<xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
+		<html class="no-js" lang="">
 			<head>
+				<meta charset="utf-8" />
+				<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				
 				<title>
 					<xsl:value-of select="/namespace/name"/>
 				</title>
-				<link href="styles/default.css" type="text/css" rel="stylesheet"></link>
+				
+				<link rel="stylesheet" href="styles/normalize.css" />
+				<link rel="stylesheet" href="styles/default-display.css" />
+				<link rel="stylesheet" href="styles/default-typography.css" />
+				<link rel="stylesheet" href="styles/default-presentation.css" />
 			</head>
 			<body>
-				<xsl:call-template name="header" />
-				<div class="navigation">
-					<ul>
-						<li>
-							<a href="index.htm">Documentation</a>
-						</li>
-					</ul>
-					<xsl:apply-templates select="document($toc)" />
-				</div>
-				<div class="content">
-					<h1>
-						<xsl:apply-templates select="name" />
-					</h1>
-					<xsl:if test="count(/namespace/parent[@type='class']) > 0">
-						<h2>Classes</h2>
-						<table>
-							<thead>
-								<tr>
-									<th class="icon"></th>
-									<th>Class</th>
-									<th>Summary</th>
-								</tr>
-							</thead>
-							<tbody>
-								<xsl:apply-templates select="/namespace/parent[@type = 'class']" />
-							</tbody>
-						</table>
-					</xsl:if>
-					<xsl:if test="count(/namespace/parent[@type='structure']) > 0">
-						<h2>Structures</h2>
-						<table>
-							<thead>
-								<tr>
-									<th class="icon"></th>
-									<th>Name</th>
-									<th>Summary</th>
-								</tr>
-							</thead>
-							<tbody>
-								<xsl:apply-templates select="/namespace/parent[@type = 'structure']" />
-							</tbody>
-						</table>
-					</xsl:if>
-					<xsl:if test="count(/namespace/parent[@type='interface']) > 0">
-						<h2>Interfaces</h2>
-						<table>
-							<thead>
-								<tr>
-									<th class="icon"></th>
-									<th>Name</th>
-									<th>Summary</th>
-								</tr>
-							</thead>
-							<tbody>
-								<xsl:apply-templates select="/namespace/parent[@type = 'interface']" />
-							</tbody>
-						</table>
-					</xsl:if>
-					<xsl:if test="count(/namespace/parent[@type='delegate']) > 0">
-						<h2>Delegates</h2>
-						<table>
-							<thead>
-								<tr>
-									<th class="icon"></th>
-									<th>Delegate</th>
-									<th>Description</th>
-								</tr>
-							</thead>
-							<tbody>
-								<xsl:apply-templates select="/namespace/parent[@type = 'delegate']" />
-							</tbody>
-						</table>
-					</xsl:if>
-					<xsl:if test="count(/namespace/parent[@type='enum']) > 0">
-						<h2>Enumerations</h2>
-						<table>
-							<thead>
-								<tr>
-									<th class="icon"></th>
-									<th>Name</th>
-									<th>Summary</th>
-								</tr>
-							</thead>
-							<tbody>
-								<xsl:apply-templates select="/namespace/parent[@type = 'enum']" />
-							</tbody>
-						</table>
-					</xsl:if>
-				</div>
+				<header>
+					<xsl:call-template name="header" />
+					<nav class="navigation">
+						<ul>
+							<li>
+								<a href="index.htm">Documentation</a>
+							</li>
+						</ul>
+						<xsl:apply-templates select="document($toc)" />
+					</nav>
+				</header>
+				<main class="content">
+					<section>
+						<h1>
+							<xsl:apply-templates select="name" />
+						</h1>
+						<xsl:if test="count(/namespace/parent[@type='class']) > 0">
+							<h2>Classes</h2>
+							<table>
+								<thead>
+									<tr>
+										<th class="icon"></th>
+										<th>Class</th>
+										<th>Summary</th>
+									</tr>
+								</thead>
+								<tbody>
+									<xsl:apply-templates select="/namespace/parent[@type = 'class']" />
+								</tbody>
+							</table>
+						</xsl:if>
+						<xsl:if test="count(/namespace/parent[@type='structure']) > 0">
+							<h2>Structures</h2>
+							<table>
+								<thead>
+									<tr>
+										<th class="icon"></th>
+										<th>Name</th>
+										<th>Summary</th>
+									</tr>
+								</thead>
+								<tbody>
+									<xsl:apply-templates select="/namespace/parent[@type = 'structure']" />
+								</tbody>
+							</table>
+						</xsl:if>
+						<xsl:if test="count(/namespace/parent[@type='interface']) > 0">
+							<h2>Interfaces</h2>
+							<table>
+								<thead>
+									<tr>
+										<th class="icon"></th>
+										<th>Name</th>
+										<th>Summary</th>
+									</tr>
+								</thead>
+								<tbody>
+									<xsl:apply-templates select="/namespace/parent[@type = 'interface']" />
+								</tbody>
+							</table>
+						</xsl:if>
+						<xsl:if test="count(/namespace/parent[@type='delegate']) > 0">
+							<h2>Delegates</h2>
+							<table>
+								<thead>
+									<tr>
+										<th class="icon"></th>
+										<th>Delegate</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<xsl:apply-templates select="/namespace/parent[@type = 'delegate']" />
+								</tbody>
+							</table>
+						</xsl:if>
+						<xsl:if test="count(/namespace/parent[@type='enum']) > 0">
+							<h2>Enumerations</h2>
+							<table>
+								<thead>
+									<tr>
+										<th class="icon"></th>
+										<th>Name</th>
+										<th>Summary</th>
+									</tr>
+								</thead>
+								<tbody>
+									<xsl:apply-templates select="/namespace/parent[@type = 'enum']" />
+								</tbody>
+							</table>
+						</xsl:if>
+					</section>
+				</main>
 				<xsl:call-template name="footer" />
 			</body>
 		</html>
 	</xsl:template>
 
 	<xsl:template match="/namespaces">
-		<html>
+		<xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
+		<html class="no-js" lang="">
 			<head>
+				<meta charset="utf-8" />
+				<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				
 				<title>
 					<xsl:value-of select="name"/>
 				</title>
-				<link href="styles/default.css" type="text/css" rel="stylesheet"></link>
+				
+				<link rel="stylesheet" href="styles/normalize.css" />
+				<link rel="stylesheet" href="styles/default-display.css" />
+				<link rel="stylesheet" href="styles/default-typography.css" />
+				<link rel="stylesheet" href="styles/default-presentation.css" />
 			</head>
 			<body>
-				<xsl:call-template name="header" />
-				<div class="navigation">
-					<ul>
-						<li>
-							<a href="index.htm">Documentation</a>
-						</li>
-					</ul>
-					<xsl:apply-templates select="document($toc)" />
-				</div>
-				<div class="content">
-					<h1>
-						<xsl:apply-templates select="name" />
-					</h1>
-					<table>
-						<thead>
-							<tr>
-								<th>Namespace</th>
-							</tr>
-						</thead>
-						<tbody>
-							<xsl:apply-templates select="entry" />
-						</tbody>
-					</table>
-				</div>
+				<header>
+					<xsl:call-template name="header" />
+					<nav class="navigation">
+						<ul>
+							<li>
+								<a href="index.htm">Documentation</a>
+							</li>
+						</ul>
+						<xsl:apply-templates select="document($toc)" />
+					</nav>
+				</header>
+				<main class="content">
+					<section>
+						<h1>
+							<xsl:apply-templates select="name" />
+						</h1>
+						<table>
+							<thead>
+								<tr>
+									<th>Namespace</th>
+								</tr>
+							</thead>
+							<tbody>
+								<xsl:apply-templates select="entry" />
+							</tbody>
+						</table>
+					</section>
+				</main>
 				<xsl:call-template name="footer" />
 			</body>
 		</html>
@@ -243,85 +295,94 @@
 	</xsl:template>
 	
 	<xsl:template match="/member">
-		<html>
+		<xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html></xsl:text>
+		<html class="no-js" lang="">
 			<head>
+				<meta charset="utf-8" />
+				<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				
 				<title>
 					<xsl:value-of select="/member/name"/>
 				</title>
-				<link href="styles/default.css" type="text/css" rel="stylesheet"></link>
+				
+				<link rel="stylesheet" href="styles/normalize.css" />
+				<link rel="stylesheet" href="styles/default-display.css" />
+				<link rel="stylesheet" href="styles/default-typography.css" />
+				<link rel="stylesheet" href="styles/default-presentation.css" />
 			</head>
 			<body>
-				<xsl:call-template name="header" />
-				<div class="navigation">
-					<ul>
-						<li>
-							<a href="index.htm">Documentation</a>
-						</li>
-					</ul>
-					<xsl:apply-templates select="document($toc)" />
-				</div>
-				<div class="content">
-					<h1>
-						<xsl:value-of select="/member/name" />
-						<xsl:text> </xsl:text>
-						<xsl:call-template name="type-display-name" />
-					</h1>
-
-					<xsl:apply-templates select="/member/summary" />
-
-					<xsl:apply-templates select="/member/inheritance" />
-
-					<xsl:if test="(namespace or assembly)">
-						<div class="details">
-							<xsl:if test="namespace">
-								<span class="namespace">
-									<em>Namespace:</em>
-									<xsl:text> </xsl:text>
-									<a href="{/member/namespace/@id}-{/member/namespace/@name}.htm">
-										<xsl:value-of select="/member/namespace" />
-									</a>
-								</span>
-							</xsl:if>
-							<xsl:if test="assembly">
-								<span class="assembly">
-									<em>Assembly:</em><xsl:text> </xsl:text><xsl:value-of select="/member/assembly" /> in (<xsl:value-of select="/member/assembly/@file" />)
-								</span>
-							</xsl:if>
-						</div>
-					</xsl:if>
-
-					<xsl:apply-templates select="/member/*/syntax" />
-					<xsl:apply-templates select="/member/genericparameters" />
-					<xsl:apply-templates select="/member/parameters" />
-					<xsl:apply-templates select="/member/exceptions" />
-
-					<xsl:if test="/member/@type != 'delegate'">
-						<xsl:call-template name="member-lists" />
-					</xsl:if>
-					<xsl:apply-templates select="/member/values" />
-
-					<xsl:apply-templates select="/member/remarks" />
-
-					<xsl:apply-templates select="/member/example" />
-
-					<xsl:apply-templates select="/member/seealsolist" />
-				</div>
+				<header>
+					<xsl:call-template name="header" />
+					<nav class="navigation">
+						<ul>
+							<li>
+								<a href="index.htm">Documentation</a>
+							</li>
+						</ul>
+						<xsl:apply-templates select="document($toc)" />
+					</nav>
+				</header>
+				<main class="content">
+					<section>
+						<h1>
+							<xsl:value-of select="/member/name" />
+							<xsl:text> </xsl:text>
+							<xsl:call-template name="type-display-name" />
+						</h1>
+	
+						<xsl:apply-templates select="/member/summary" />
+	
+						<xsl:apply-templates select="/member/inheritance" />
+	
+						<xsl:if test="(namespace or assembly)">
+							<div class="details">
+								<xsl:if test="namespace">
+									<span class="namespace">
+										<em>Namespace:</em>
+										<xsl:text> </xsl:text>
+										<a href="{/member/namespace/@id}-{/member/namespace/@name}.htm">
+											<xsl:value-of select="/member/namespace" />
+										</a>
+									</span>
+								</xsl:if>
+								<xsl:if test="assembly">
+									<span class="assembly">
+										<em>Assembly:</em><xsl:text> </xsl:text><xsl:value-of select="/member/assembly" /> in (<xsl:value-of select="/member/assembly/@file" />)
+									</span>
+								</xsl:if>
+							</div>
+						</xsl:if>
+	
+						<xsl:apply-templates select="/member/*/syntax" />
+						<xsl:apply-templates select="/member/genericparameters" />
+						<xsl:apply-templates select="/member/parameters" />
+						<xsl:apply-templates select="/member/exceptions" />
+	
+						<xsl:if test="/member/@type != 'delegate'">
+							<xsl:call-template name="member-lists" />
+						</xsl:if>
+						<xsl:apply-templates select="/member/values" />
+	
+						<xsl:apply-templates select="/member/remarks" />
+	
+						<xsl:apply-templates select="/member/example" />
+	
+						<xsl:apply-templates select="/member/seealsolist" />
+					</section>
+				</main>
 				<xsl:call-template name="footer" />
 			</body>
 		</html>
 	</xsl:template>
 
 	<xsl:template name="footer">
-		<div class="footer">
+		<footer class="footer">
 			Produced by the <a href="http://theboxsoftware.com/products/live-documenter/">Live Documenter</a> developed by <a href="http://theboxsoftware.com">The Box Software</a>.
-		</div>
+		</footer>
 	</xsl:template>
 
 	<xsl:template name="header">
-		<div class="header">
-			<xsl:text> </xsl:text>
-		</div>
-		<br class="clear" />
 	</xsl:template>
 
 	<xsl:template match="/member/values">
